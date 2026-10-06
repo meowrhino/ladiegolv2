@@ -16,7 +16,7 @@ Portfolio de LA DIEGOL. Web estática: un `index.html`, un `data.json` y una car
 - **About** (`/about`): la bio y la lista de clientes, de `data.json`. Se entra **clicando el nombre** de la cabecera; para volver, el "home" de arriba a la derecha.
 - **Welcome** (`/welcome`): la portada de bienvenida, con el nombre en grande sobre un pase de imágenes. Dos versiones para comparar: **`/welcome-loop`** y **`/welcome-stills`**.
 - El **logo** va en **Asset**; el resto del texto, en **Arya**. La cabecera se queda fija arriba y se invierte sobre lo que pasa por debajo (blanco sobre negro, oscuro sobre fotos claras). En la home el nombre va más grande.
-- El **fondo** es negro con grano fino de película.
+- El **fondo** es negro puro, sin grano.
 
 ---
 
@@ -196,7 +196,7 @@ index.html / 404.html   ← el mismo cascarón (el 404 solo lo usa GitHub Pages)
 data.json               ← todo el contenido
 _PROJECTS/<slug>/       ← stills/1.webp…n.webp y hover.webm
 css/
-  base.css      tokens, grano, tipografías, cabecera, about
+  base.css      tokens, tipografías, cabecera, about
   home.css      el grid
   project.css   ficha, vimeo y galería
   welcome.css   la portada de bienvenida
