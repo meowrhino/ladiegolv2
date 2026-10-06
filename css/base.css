@@ -107,7 +107,7 @@ body[data-vista="home"] .site-header {
 .site-nav a:hover { color: var(--fg); }
 
 /* en un proyecto, el nav enseña su título y en hover pasa a "back" */
-.site-nav__index--titulo { text-transform: uppercase; letter-spacing: .06em; }
+.site-nav__index--titulo { text-transform: lowercase; }
 .site-nav__titulo {
   display: block;
   max-width: 45vw;
@@ -146,8 +146,8 @@ body[data-vista="welcome"] .app { padding: 0; }
 .about__clients {
   margin-top: 2rem;
   color: rgba(255, 255, 255, .7);
-  text-transform: uppercase;
-  letter-spacing: .06em;
+  text-transform: lowercase;
+  letter-spacing: .02em;
   font-size: .85rem;
 }
 

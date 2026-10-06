@@ -56,8 +56,8 @@
   bottom: calc(var(--pad) * 2);
   margin: 0;
   color: rgba(255, 255, 255, .7);
-  text-transform: uppercase;
-  letter-spacing: .3em;
+  text-transform: lowercase;
+  letter-spacing: .2em;
   font-size: .77rem;
   animation: welcome-latido 2.4s ease-in-out infinite;
 }

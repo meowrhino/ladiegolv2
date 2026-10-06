@@ -46,8 +46,8 @@
   gap: 1.6em;
   font-size: .7rem;
   line-height: 1.2;
-  text-transform: uppercase;
-  letter-spacing: .06em;
+  text-transform: lowercase;
+  letter-spacing: .02em;
   white-space: nowrap;
 }
 

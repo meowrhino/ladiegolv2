@@ -10,9 +10,9 @@ Portfolio de LA DIEGOL. Web estática: un `index.html`, un `data.json` y una car
 
 ## Cómo funciona en 30 segundos
 
-- **Home** (`/`): un grid con un proyecto por casilla. Cuatro columnas con mucho negro entre casillas (dos en tablet, **una en móvil**). Encima de cada casilla, en pequeño, el **número**, el cliente y el título. Se ve un **still de portada**; al pasar el ratón por encima arranca el **loop** del proyecto. En **móvil no hay hover**, así que se activa lo que queda en la **franja central** de la pantalla mientras haces scroll.
+- **Home** (`/`): un grid con un proyecto por casilla. Cuatro columnas con mucho negro entre casillas (dos en tablet, **una en móvil**). Encima de cada casilla, en pequeño y en minúsculas, el **número**, el cliente y el título. Se ve un **still de portada**; al pasar el ratón por encima arranca el **loop** del proyecto. En **móvil no hay hover**, así que se activa lo que queda en la **franja central** de la pantalla mientras haces scroll.
 - Los proyectos con `"destacado": true` ocupan una **casilla doble**, alternando lado.
-- **Proyecto** (`/<slug>`): primero el/los videos de Vimeo (no cargan hasta que los clicas), debajo la ficha (título · cliente · tipo) y después la galería de stills.
+- **Proyecto** (`/<slug>`): todo en una pantalla: arriba el **visor** con el video de Vimeo (no carga hasta que lo clicas), debajo una **tira de miniaturas** (primero los videos, con ▶, luego los stills) para ir pasando con clic o con las flechas ← →, y la ficha (título · cliente · tipo).
 - **About** (`/about`): la bio y la lista de clientes, de `data.json`. Se entra **clicando el nombre** de la cabecera; para volver, el "home" de arriba a la derecha.
 - **Welcome** (`/welcome`): la portada de bienvenida, con el nombre cambiando de tipografía letra a letra sobre un pase de imágenes. Dos versiones para comparar: **`/welcome-loop`** y **`/welcome-stills`**.
 - El **logo** reparte seis góticas entre las letras, una distinta cada vez que se carga la página. La cabecera se queda fija arriba y se invierte sobre lo que pasa por debajo (blanco sobre negro, oscuro sobre fotos claras). En la home el nombre va más grande.
@@ -75,7 +75,7 @@ el orden del array) y cambia los datos:
 | campo | qué hace |
 |---|---|
 | `slug` | **igual que la carpeta** de `_PROJECTS/`. Es también la url: `ladiegol.com/por-culpa-del-amor` |
-| `titulo` / `cliente` / `tipo` | lo que se ve en la casilla y en la ficha (sale todo en mayúsculas, da igual cómo lo escribas) |
+| `titulo` / `cliente` / `tipo` | lo que se ve en la casilla y en la ficha (sale todo en minúsculas, da igual cómo lo escribas) |
 | `destacado` | `true` = casilla doble en la home. Mejor 2 o 3 como mucho |
 | `visible` | `false` = no sale en la home, pero `/<slug>` funciona (para pasar el link antes de publicar) |
 | `vimeo` | ids de Vimeo, solo el número (`vimeo.com/685499456` → `"685499456"`), en orden |
