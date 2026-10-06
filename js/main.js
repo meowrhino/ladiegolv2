@@ -117,7 +117,11 @@ function render() {
     delete html.dataset.paso;
     return;
   }
-  document.startViewTransition(pintar).finished.finally(() => delete html.dataset.paso);
+  const t = document.startViewTransition(pintar);
+  // si la pestaña está en segundo plano el navegador se salta la animación
+  // (pinta igual): que no salga como error en la consola
+  t.ready.catch(() => {});
+  t.finished.finally(() => delete html.dataset.paso);
 }
 
 function pintar() {
