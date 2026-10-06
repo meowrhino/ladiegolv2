@@ -6,11 +6,16 @@
      stills → los stills de meta.welcome.stills (o todos, si no hay lista)
 
    Se elige en data.json (meta.welcome.modo) y se pueden ver los dos en
-   /welcome-loop y /welcome-stills. */
+   /welcome-loop y /welcome-stills.
+
+   Es también el loader: mientras se ve, se descargan las portadas de la home
+   y las fuentes, con el porcentaje abajo. Cuando está todo (y ha pasado
+   MIN_MS, para que dé tiempo a verlo) entra solo en la home. Si algo tarda
+   más de MAX_MS entra igual, y con un clic se entra antes. */
 
 import { asset, still, loopsEnabled, reducedMotion } from "./config.js";
 import { el, shuffled } from "./dom.js";
-import { meta, welcomeStills, withLoop, velocidadLoops } from "./data.js";
+import { meta, visibles, welcomeStills, withLoop, velocidadLoops } from "./data.js";
 
 /* El ritmo del pase de stills. Son los números a tocar si va rápido o lento:
    cada foto está STILL_MS en pantalla y el fundido entre dos dura FUNDIDO_MS
@@ -18,9 +23,17 @@ import { meta, welcomeStills, withLoop, velocidadLoops } from "./data.js";
 const STILL_MS = 2600;
 const FUNDIDO_MS = 1100;
 
+const MIN_MS = 2400;
+const MAX_MS = 8000;
+
+/* Los loops miden 960 px de ancho: a pantalla completa en una pantalla enorme
+   se verían borrosos, así que ahí el welcome usa los stills (2000 px). */
+const PANTALLA_ENORME = 2200;
+
 export function welcome(modo, salir) {
   // sin loops (ahorro de datos o reduced motion) el modo loop no tiene sentido
-  const mode = modo === "loop" && loopsEnabled ? "loop" : "stills";
+  const mode =
+    modo === "loop" && loopsEnabled && innerWidth <= PANTALLA_ENORME ? "loop" : "stills";
 
   const wrap = el("section", `welcome welcome--${mode}`);
   const media = el("div", "welcome__media");
@@ -29,25 +42,64 @@ export function welcome(modo, salir) {
 
   const name = el("h1", "welcome__name", meta().nombre);
 
-  wrap.append(media, el("div", "welcome__veil"), name, el("p", "welcome__hint", "enter"));
-
-  wrap.addEventListener("click", salir);
+  const hint = el("p", "welcome__hint", "0%");
+  wrap.append(media, el("div", "welcome__veil"), name, hint);
 
   return {
     node: wrap,
     mounted: () => {
+      // se sale una sola vez: el clic y la entrada automática pueden coincidir
+      let fuera = false;
+      const entrar = () => {
+        if (fuera) return;
+        fuera = true;
+        salir();
+      };
+
       const stopPase =
         mode === "stills" ? runStills(layers) : runLoops(layers);
       const onKey = (e) => {
-        if (e.key === "Enter" || e.key === " " || e.key === "Escape") salir();
+        if (e.key === "Enter" || e.key === " " || e.key === "Escape") entrar();
       };
       addEventListener("keydown", onKey);
+      wrap.addEventListener("click", entrar);
+
+      const t0 = performance.now();
+      const timers = [setTimeout(entrar, MAX_MS)];
+      precargar((f) => (hint.textContent = `${Math.round(f * 100)}%`)).then(() => {
+        timers.push(setTimeout(entrar, Math.max(0, MIN_MS - (performance.now() - t0))));
+      });
+
       return () => {
+        fuera = true;
+        timers.forEach(clearTimeout);
         stopPase();
         removeEventListener("keydown", onKey);
       };
     },
   };
+}
+
+/* Descarga las portadas de la home y espera a las fuentes; avisa del avance
+   (de 0 a 1). Las fotos que fallan cuentan igual: el loader no se atasca. */
+function precargar(avance) {
+  const urls = visibles().map((p) => still(p.slug, p.portada || 1));
+  const total = urls.length + 1;
+  let hechas = 0;
+  const una = () => avance(++hechas / total);
+
+  const fotos = urls.map(
+    (src) =>
+      new Promise((ok) => {
+        const img = new Image();
+        img.onload = img.onerror = () => {
+          una();
+          ok();
+        };
+        img.src = src;
+      })
+  );
+  return Promise.all([...fotos, document.fonts.ready.then(una)]);
 }
 
 function slot(mode) {

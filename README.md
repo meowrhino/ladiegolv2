@@ -110,7 +110,7 @@ las fotos y los loops una hora.
 |---|---|
 | `nombre` | el logo de la cabecera y el título del about |
 | `titulo` | el título de la pestaña del navegador en la home |
-| `frase` | la línea de presentación que sale en pequeño encima del grid de la home. Vacía (`""`) = no sale |
+| `frase` | la línea de presentación que sale en pequeño debajo del nombre, en la home. Vacía (`""`) = no sale |
 | `ralentizar_loops` | velocidad de los loops: `1` = la del gif, `1.5` = un 50 % más lentos, `2` = el doble de lentos |
 | `email` / `instagram` | salen al final del about. Vacíos (`""`) = no salen. El instagram, con o sin `@` |
 | `bio` | el texto del about. Cada `\n\n` es un párrafo nuevo |
@@ -159,7 +159,13 @@ Se configura en `data.json`, dentro de `meta`:
 - `modo`: `"loop"` (los loops de los proyectos, uno tras otro) o `"stills"`.
 - `stills`: las fotos del pase, como `"slug/número"`. Si la lista está vacía salen todas.
 
-Se sale clicando en cualquier sitio (o con enter / espacio / esc).
+Hace de **loader**: mientras se ve, se descargan las portadas de la home y las fuentes, con el
+porcentaje abajo. Cuando ya está todo entra solo en la home (como mínimo se ve 2,4 s y como
+mucho 8 s, `MIN_MS` / `MAX_MS` arriba de `js/welcome.js`). Se puede entrar antes clicando en
+cualquier sitio (o con enter / espacio / esc).
+
+En pantallas de más de 2200 px de ancho usa siempre los stills: los loops miden 960 px y a
+pantalla completa se verían borrosos.
 
 El ritmo del pase de stills está arriba de `js/welcome.js`: `STILL_MS` (2,6 s por foto) y
 `FUNDIDO_MS` (1,1 s de fundido, que va también en `css/welcome.css`). Los loops se ven enteros.

@@ -18,8 +18,8 @@ export function about() {
     return img;
   });
   media.append(...layers, el("div", "welcome__veil about__veil"));
+  // el nombre ya está en la cabecera: aquí no se repite
   wrap.append(media);
-  wrap.append(el("h1", "project__title", m.nombre));
 
   (m.bio || "").split("\n\n").forEach((par) => wrap.append(el("p", null, par)));
 

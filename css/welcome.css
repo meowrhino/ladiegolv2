@@ -41,7 +41,7 @@
   padding: 0 var(--pad);
   font-family: var(--font-title);
   /* con Asset el nombre mide ~12 veces esto: 7vw ≈ 83 % del ancho */
-  font-size: clamp(24px, 7vw, 9rem);
+  font-size: clamp(24px, 7vw, 14rem);
   white-space: nowrap;
   line-height: .95;
   font-weight: 400;
