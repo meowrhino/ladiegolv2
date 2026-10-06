@@ -61,7 +61,9 @@ function vista(path) {
     // el welcome solo sale de portada si está activado, y una vez por visita
     if (w?.activo && !visto.get()) {
       visto.set();
-      return [welcome(w.modo, salirDelWelcome), meta().titulo || meta().nombre];
+      // el tercer valor fuerza data-vista="welcome": la ruta es la de la home,
+      // pero tiene que ir a pantalla completa y sin cabecera
+      return [welcome(w.modo, salirDelWelcome), meta().titulo || meta().nombre, "welcome"];
     }
     return [home(), meta().titulo || meta().nombre];
   }
@@ -103,10 +105,10 @@ function render() {
   limpiar = null;
 
   const path = ruta();
-  const [view, title] = vista(path);
+  const [view, title, nombre = vistaNombre(path)] = vista(path);
 
   document.title = title;
-  document.body.dataset.vista = vistaNombre(path);
+  document.body.dataset.vista = nombre;
   app.replaceChildren(view.node);
   if (view.mounted) limpiar = view.mounted();
 
