@@ -1,7 +1,7 @@
 /* Arranque y router. Cada vista devuelve { node, mounted? }:
    'mounted' se llama al pintarla y devuelve su función de limpieza. */
 
-import { BASE, href } from "./config.js";
+import { BASE, href, reducedMotion } from "./config.js";
 import { el, link } from "./dom.js";
 import { load, bySlug, meta } from "./data.js";
 import { wordmark, reshuffle } from "./wordmark.js";
@@ -33,7 +33,11 @@ function go(url) {
 
 /* salir del welcome: si ya estamos en la portada no hay a dónde navegar,
    solo hay que volver a pintar (la marca de "ya visto" está puesta) */
-const salirDelWelcome = () => (ruta() === "" ? render() : go(href()));
+const salirDelWelcome = () => {
+  // marca este paso para que el css le dé su transición, más lenta
+  document.documentElement.dataset.paso = "welcome";
+  return ruta() === "" ? render() : go(href());
+};
 
 /* en navegación privada sessionStorage puede petar: que no tumbe la web */
 const visto = {
@@ -100,7 +104,23 @@ function noEncontrado() {
   return { node: wrap };
 }
 
+/* Cambiar de página con fundido (view transitions, el navegador hace la
+   animación; los tiempos están en css/base.css). La primera vez se pinta
+   directo, y sin soporte o con "menos movimiento" también. */
+let pintada = false;
+
 function render() {
+  const html = document.documentElement;
+  if (!pintada || reducedMotion || !document.startViewTransition) {
+    pintada = true;
+    pintar();
+    delete html.dataset.paso;
+    return;
+  }
+  document.startViewTransition(pintar).finished.finally(() => delete html.dataset.paso);
+}
+
+function pintar() {
   if (limpiar) limpiar();
   limpiar = null;
 

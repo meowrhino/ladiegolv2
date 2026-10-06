@@ -154,6 +154,27 @@ body[data-vista="welcome"] .app { padding: 0; }
 .back { display: inline-block; margin-top: 2rem; color: var(--fg-dim); }
 .back:hover { color: var(--fg); }
 
+/* ---------- transiciones entre páginas ---------- */
+
+/* fundido entre una página y otra (js/main.js, render) */
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: .45s; }
+
+/* el nombre viaja de un sitio a otro en vez de fundirse: del welcome a la
+   cabecera, y entre el tamaño de la home y el del resto */
+.site-header .wordmark,
+.welcome__name { view-transition-name: marca; }
+::view-transition-group(marca) { animation-duration: .45s; }
+
+/* al salir del welcome todo va más despacio: el pase se apaga y el nombre
+   grande baja a su sitio en la cabecera */
+html[data-paso="welcome"]::view-transition-old(root),
+html[data-paso="welcome"]::view-transition-new(root),
+html[data-paso="welcome"]::view-transition-group(marca) {
+  animation-duration: 1.2s;
+  animation-timing-function: cubic-bezier(.65, 0, .25, 1);
+}
+
 @media (max-width: 720px) {
   :root { --gap: 6px; --pad: 12px; }
 }

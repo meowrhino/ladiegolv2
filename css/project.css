@@ -1,64 +1,19 @@
-/* La página de proyecto: visor, tira de miniaturas y ficha, todo en una pantalla. */
+/* La página de proyecto. */
 
 .project { max-width: 85rem; margin: 0 auto; }
-
-/* el visor es lo más grande que cabe dejando sitio a la tira y la ficha */
-.visor {
-  width: min(100%, calc((100svh - 15rem) * 16 / 9));
-  margin: 0 auto;
-  aspect-ratio: 16 / 9;
-  background: #000;
-}
-.visor > * { width: 100%; height: 100%; }
-/* los stills con otra proporción se ven enteros, con negro alrededor */
-.visor__still { object-fit: contain; }
-
-.tira {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px;
-  margin-top: 1rem;
-}
-
-.tira__thumb {
-  position: relative;
-  width: 3.4rem;
-  aspect-ratio: 16 / 9;
-  padding: 0;
-  border: 0;
-  background: #151515;
-  cursor: pointer;
-  opacity: .4;
-  transition: opacity var(--dur) ease;
-}
-.tira__thumb:hover,
-.tira__thumb:focus-visible,
-.tira__thumb.is-on { opacity: 1; }
-.tira__thumb.is-on { outline: 1px solid var(--fg); outline-offset: 2px; }
-
-.tira__play {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: .7rem;
-  color: #fff;
-  text-shadow: 0 0 6px rgba(0, 0, 0, .8);
-}
 
 .project__head {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: .5rem;
-  padding: 2.5rem 0 0;
+  gap: 1.1rem;
+  padding: 8rem 0;
 }
 
 .project__title {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   font-weight: 400;
   text-transform: lowercase;
   letter-spacing: .02em;
@@ -69,16 +24,16 @@
   color: var(--fg-dim);
   text-transform: lowercase;
   letter-spacing: .02em;
-  font-size: .9rem;
+  font-size: 1.05rem;
 }
 
 /* el back del final: centrado, grande y con aire */
 .project > .back {
   display: block;
   width: fit-content;
-  margin: 3rem auto 2rem;
+  margin: 7rem auto 3rem;
   padding: 1rem 2rem;
-  font-size: 1rem;
+  font-size: 1.3rem;
   letter-spacing: .04em;
 }
 
@@ -87,6 +42,7 @@
   position: relative;
   aspect-ratio: 16 / 9;
   background: #151515;
+  margin-bottom: var(--gap);
   cursor: pointer;
   overflow: hidden;
 }
@@ -105,3 +61,11 @@
 }
 
 .player:hover .player__play { transform: scale(1.12); }
+
+.stills { display: flex; flex-direction: column; gap: var(--gap); }
+/* sin medidas, antes de cargar miden 0 px y el lazy-load las baja todas:
+   16:9 de reserva hasta que llega la foto, y luego su proporción real */
+.stills img { height: auto; aspect-ratio: auto 16 / 9; }
+/* cada foto entra con un fundido cuando termina de cargar, en vez de aparecer de golpe */
+.still { opacity: 0; transition: opacity .8s ease; }
+.still.is-loaded { opacity: 1; }

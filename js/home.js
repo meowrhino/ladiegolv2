@@ -30,6 +30,7 @@ export function home() {
 
     const media = el("div", "tile__media");
     const still = el("img", "tile__still");
+    still.onload = () => still.classList.add("is-loaded"); // entra con fundido
     still.src = stillSrc(p.slug, p.portada || 1);
     still.alt = `${p.cliente} — ${p.titulo}`;
     still.loading = "lazy";
