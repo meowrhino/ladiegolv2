@@ -20,21 +20,24 @@ export function home() {
       bigs++;
     }
 
-    const still = el("img", "tile__still");
-    still.src = stillSrc(p.slug, p.portada || 1);
-    still.alt = `${p.cliente} — ${p.titulo}`;
-    still.loading = "lazy";
-    still.decoding = "async";
-    tile.append(still);
-    if (p.loop !== false) tile.append(makeLoop(p.slug));
-
+    // el rótulo va encima de la imagen, no sobre ella
     const meta = el("div", "tile__meta");
     meta.append(el("span", null, p.cliente));
     // si el título repite el nombre del cliente (coches.net) no lo ponemos dos veces
     if (p.titulo.toLowerCase() !== p.cliente.toLowerCase()) {
       meta.append(el("span", null, p.titulo));
     }
-    tile.append(meta);
+
+    const media = el("div", "tile__media");
+    const still = el("img", "tile__still");
+    still.src = stillSrc(p.slug, p.portada || 1);
+    still.alt = `${p.cliente} — ${p.titulo}`;
+    still.loading = "lazy";
+    still.decoding = "async";
+    media.append(still);
+    if (p.loop !== false) media.append(makeLoop(p.slug));
+
+    tile.append(meta, media);
 
     grid.append(tile);
   });
