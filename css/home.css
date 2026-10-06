@@ -1,4 +1,12 @@
-/* La home: el grid de casillas. */
+/* La home: la frase de presentación y el grid de casillas. */
+
+.home__frase {
+  max-width: 40ch;
+  margin: 0 0 2.5rem;
+  color: var(--fg-dim);
+  font-size: .85rem;
+  text-transform: lowercase;
+}
 
 /* mucho negro entre casillas: las filas se separan más que las columnas,
    porque cada casilla lleva su rótulo encima */

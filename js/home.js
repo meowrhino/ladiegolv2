@@ -2,7 +2,7 @@
 
 import { href, still as stillSrc } from "./config.js";
 import { el, link } from "./dom.js";
-import { visibles } from "./data.js";
+import { meta, visibles } from "./data.js";
 import { makeLoop, wireLoops } from "./loops.js";
 
 export function home() {
@@ -42,5 +42,10 @@ export function home() {
     grid.append(tile);
   });
 
-  return { node: grid, mounted: () => wireLoops(grid) };
+  // la frase de presentación, en pequeño encima del grid (meta.frase)
+  const wrap = el("div", "home");
+  if (meta().frase) wrap.append(el("p", "home__frase", meta().frase));
+  wrap.append(grid);
+
+  return { node: wrap, mounted: () => wireLoops(grid) };
 }

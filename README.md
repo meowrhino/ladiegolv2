@@ -110,6 +110,7 @@ las fotos y los loops una hora.
 |---|---|
 | `nombre` | el logo de la cabecera y el título del about |
 | `titulo` | el título de la pestaña del navegador en la home |
+| `frase` | la línea de presentación que sale en pequeño encima del grid de la home. Vacía (`""`) = no sale |
 | `ralentizar_loops` | velocidad de los loops: `1` = la del gif, `1.5` = un 50 % más lentos, `2` = el doble de lentos |
 | `email` / `instagram` | salen al final del about. Vacíos (`""`) = no salen. El instagram, con o sin `@` |
 | `bio` | el texto del about. Cada `\n\n` es un párrafo nuevo |
@@ -148,7 +149,7 @@ Se configura en `data.json`, dentro de `meta`:
 
 ```json
 "welcome": {
-  "activo": false,
+  "activo": true,
   "modo": "loop",
   "stills": ["stripper/1", "are-you-one-of-us/10", "cerca/6"]
 }
