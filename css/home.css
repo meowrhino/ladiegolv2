@@ -55,7 +55,7 @@
 .tile__meta {
   display: flex;
   gap: 1.6em;
-  font-size: .7rem;
+  font-size: .8rem; /* Arya es más fina que la mono: un punto más para que se lea */
   line-height: 1.2;
   text-transform: lowercase;
   letter-spacing: .02em;
