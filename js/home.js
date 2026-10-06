@@ -2,7 +2,7 @@
 
 import { href, still as stillSrc } from "./config.js";
 import { el, link } from "./dom.js";
-import { visibles } from "./data.js";
+import { meta, visibles } from "./data.js";
 import { makeLoop, wireLoops } from "./loops.js";
 
 export function home() {
@@ -43,5 +43,13 @@ export function home() {
     grid.append(tile);
   });
 
-  return { node: grid, mounted: () => wireLoops(grid) };
+  // la frase de presentación (meta.frase) y el enlace al about, justo antes
+  // del grid y scrolleando con él
+  const wrap = el("div", "home");
+  const intro = el("div", "home__intro");
+  if (meta().frase) intro.append(el("p", "home__frase", meta().frase));
+  intro.append(link("home__about", href("about"), "→ see about"));
+  wrap.append(intro, grid);
+
+  return { node: wrap, mounted: () => wireLoops(grid) };
 }

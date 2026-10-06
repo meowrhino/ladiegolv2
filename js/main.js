@@ -168,8 +168,6 @@ load()
     marca.href = href("about");
     marca.dataset.link = "";
     marca.textContent = meta().nombre;
-    // la frase de presentación (meta.frase): va en la cabecera, solo se ve en la home
-    document.querySelector(".site-frase").textContent = meta().frase || "";
 
     render();
   })

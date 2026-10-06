@@ -1,4 +1,15 @@
-/* La home: el grid de casillas. */
+/* La home: la frase de presentación, el enlace al about y el grid de casillas. */
+
+/* también con difference, como la cabecera */
+.home__intro {
+  margin: 0 0 2.5rem;
+  font-size: .85rem;
+  text-transform: lowercase;
+  mix-blend-mode: difference;
+}
+.home__frase { max-width: 40ch; margin: 0 0 .4rem; color: var(--fg-dim); }
+.home__about { color: var(--fg); }
+.home__about:hover { color: var(--fg-dim); }
 
 /* mucho negro entre casillas: las filas se separan más que las columnas,
    porque cada casilla lleva su rótulo encima */
