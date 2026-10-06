@@ -1,5 +1,5 @@
-/* La portada de bienvenida: el nombre cambiando de tipografía letra a letra
-   encima de un pase de imágenes de los proyectos.
+/* La portada de bienvenida: el nombre encima de un pase de imágenes de los
+   proyectos.
 
    Dos modos, para poder compararlos:
      loop   → los loops (hover.webm) de los proyectos, en orden aleatorio
@@ -11,7 +11,6 @@
 import { asset, still, loopsEnabled, reducedMotion } from "./config.js";
 import { el, shuffled } from "./dom.js";
 import { meta, welcomeStills, withLoop, velocidadLoops } from "./data.js";
-import { wordmark, autoShuffle } from "./wordmark.js";
 
 /* El ritmo del pase de stills. Son los números a tocar si va rápido o lento:
    cada foto está STILL_MS en pantalla y el fundido entre dos dura FUNDIDO_MS
@@ -28,8 +27,7 @@ export function welcome(modo, salir) {
   const layers = [slot(mode), slot(mode)];
   media.append(...layers);
 
-  const name = el("h1", "welcome__name");
-  name.append(wordmark(meta().nombre));
+  const name = el("h1", "welcome__name", meta().nombre);
 
   wrap.append(media, el("div", "welcome__veil"), name, el("p", "welcome__hint", "enter"));
 
@@ -38,9 +36,6 @@ export function welcome(modo, salir) {
   return {
     node: wrap,
     mounted: () => {
-      // con los stills todo va más calmado, también las letras
-      const stopName =
-        mode === "stills" ? autoShuffle(name, 900, 2800) : autoShuffle(name, 260, 1100);
       const stopPase =
         mode === "stills" ? runStills(layers) : runLoops(layers);
       const onKey = (e) => {
@@ -48,7 +43,6 @@ export function welcome(modo, salir) {
       };
       addEventListener("keydown", onKey);
       return () => {
-        stopName();
         stopPase();
         removeEventListener("keydown", onKey);
       };

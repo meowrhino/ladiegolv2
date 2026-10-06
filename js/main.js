@@ -4,7 +4,6 @@
 import { BASE, href, reducedMotion } from "./config.js";
 import { el, link } from "./dom.js";
 import { load, bySlug, meta } from "./data.js";
-import { wordmark, reshuffle } from "./wordmark.js";
 import { home } from "./home.js";
 import { project } from "./project.js";
 import { about } from "./about.js";
@@ -168,8 +167,7 @@ load()
     // el nombre es el enlace al about
     marca.href = href("about");
     marca.dataset.link = "";
-    marca.replaceChildren(wordmark(meta().nombre));
-    marca.addEventListener("pointerenter", () => reshuffle(marca));
+    marca.textContent = meta().nombre;
 
     render();
   })

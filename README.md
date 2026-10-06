@@ -14,8 +14,8 @@ Portfolio de LA DIEGOL. Web estática: un `index.html`, un `data.json` y una car
 - Los proyectos con `"destacado": true` ocupan una **casilla doble**, alternando lado.
 - **Proyecto** (`/<slug>`): arriba el/los videos de Vimeo (no cargan hasta que los clicas), debajo la ficha (título · cliente · tipo) y después la galería de stills, para ir bajando.
 - **About** (`/about`): la bio y la lista de clientes, de `data.json`. Se entra **clicando el nombre** de la cabecera; para volver, el "home" de arriba a la derecha.
-- **Welcome** (`/welcome`): la portada de bienvenida, con el nombre cambiando de tipografía letra a letra sobre un pase de imágenes. Dos versiones para comparar: **`/welcome-loop`** y **`/welcome-stills`**.
-- El **logo** reparte seis góticas entre las letras, una distinta cada vez que se carga la página. La cabecera se queda fija arriba y se invierte sobre lo que pasa por debajo (blanco sobre negro, oscuro sobre fotos claras). En la home el nombre va más grande.
+- **Welcome** (`/welcome`): la portada de bienvenida, con el nombre en grande sobre un pase de imágenes. Dos versiones para comparar: **`/welcome-loop`** y **`/welcome-stills`**.
+- El **logo** va en **Asset**; el resto del texto, en **Arya**. La cabecera se queda fija arriba y se invierte sobre lo que pasa por debajo (blanco sobre negro, oscuro sobre fotos claras). En la home el nombre va más grande.
 - El **fondo** es negro con grano fino de película.
 
 ---
@@ -204,8 +204,7 @@ js/
   project.js    la página de proyecto
   about.js      el about
   welcome.js    las dos versiones del welcome
-  wordmark.js   el nombre con una tipo por letra
-fonts/          JetBrains Mono + seis góticas (recortadas a las mayúsculas)
+fonts/          Asset (títulos) y Arya (texto)
 .vscode/        ajustes de Live Server
 tools/          conversión en bloque y servidor local
 ```
@@ -265,13 +264,12 @@ Probar exactamente lo que servirá Cloudflare: `npx wrangler dev` → http://loc
 
 ## Tipografías
 
-- **JetBrains Mono** (texto) y seis góticas para el logo: UnifrakturMaguntia, Germania One,
-  Pirata One, New Rocker, Metal Mania y Grenze Gotisch. Todas libres (OFL), servidas desde
-  `fonts/` y recortadas a mayúsculas y números: pesan 74 KB entre las siete.
-- Si aparecen los archivos de **Akkurat** o **BKSMono**, se añaden a `fonts/`, se declara el
-  `@font-face` en `css/base.css` y se cambia `--font-mono` / `--font-sans`.
-- Para cambiar una gótica del logo: sustituir el `dN-*.woff2` correspondiente y su `@font-face`
-  (`"Diegol N"`). Si algún día son más o menos de seis, ajustar `FAMILIES` en `js/wordmark.js`.
+- **Asset** para los títulos (el nombre, el welcome y el título de cada proyecto) y **Arya** para
+  todo lo demás. Las dos libres (OFL), sacadas de [fonts.bunny.net](https://fonts.bunny.net/)
+  (solo el juego latino) y servidas desde `fonts/`.
+- Para cambiarlas: dejar el `.woff2` nuevo en `fonts/`, cambiar su `@font-face` en
+  `css/base.css` y, si cambia el nombre, `--font-title` / `--font-body`. Ojo: Asset es muy ancha,
+  y los tamaños del nombre (`.wordmark`, `.welcome__name`) están pensados para ella.
 
 ---
 

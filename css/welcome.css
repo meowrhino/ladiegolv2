@@ -1,5 +1,5 @@
 /* La portada de bienvenida: pase de imágenes a pantalla completa
-   con el nombre encima cambiando de tipografía. */
+   con el nombre encima. */
 
 .welcome {
   position: relative;
@@ -39,7 +39,10 @@
   position: relative;
   margin: 0;
   padding: 0 var(--pad);
-  font-size: clamp(42px, 13vw, 14.6rem);
+  font-family: var(--font-title);
+  /* con Asset el nombre mide ~12 veces esto: 7vw ≈ 83 % del ancho */
+  font-size: clamp(24px, 7vw, 9rem);
+  white-space: nowrap;
   line-height: .95;
   font-weight: 400;
   text-align: center;
@@ -47,9 +50,6 @@
   mix-blend-mode: normal;
   text-shadow: 0 0 60px rgba(0, 0, 0, .55);
 }
-
-.welcome__name .wordmark__letter { display: inline-block; }
-.welcome__name .wordmark__space { display: inline-block; width: .3em; }
 
 .welcome__hint {
   position: absolute;
